@@ -1,0 +1,26 @@
+/* Mainpage.css */
+
+/* 페이지가 나타날 때 */
+.page-enter {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+  }
+  
+  .page-enter-active {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+    transition: clip-path 0.5s ease, opacity 0.5s ease;
+  }
+  
+  /* 페이지가 사라질 때 */
+  .page-exit {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+  }
+  
+  .page-exit-active {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+    transition: clip-path 0.5s ease, opacity 0.5s ease;
+  }
+  

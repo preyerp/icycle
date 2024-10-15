@@ -1,0 +1,272 @@
+[
+    {
+        "id": 1,
+        "projectId": "A01",
+        "subtitle": "미래형 스마트 가전 시스템",
+        "title": "SmartHome",
+        "name": "박지윤",
+        "thumbnail": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "englishName": ["Park Jiyun"]
+    },
+    {
+        "id": 2,
+        "number": "B02",
+        "subheading": "혁신적인 내비게이션 디스플레이",
+        "title": "NavVision",
+        "designer": "조은하, 송준호",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Jo Eunha", "Song Junho"]
+    },
+    {
+        "id": 3,
+        "number": "C03",
+        "subheading": "디자인의 미래를 탐색하다",
+        "title": "Future Design",
+        "designer": "이소연",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Lee Soyeon"]
+    },
+    {
+        "id": 4,
+        "number": "D04",
+        "subheading": "스마트 홈을 위한 사용자 맞춤형 솔루션",
+        "title": "HomeTech",
+        "designer": "이재호",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Lee Jaeho"]
+    },
+    {
+        "id": 5,
+        "number": "A05",
+        "subheading": "최첨단 내비게이션 기술",
+        "title": "NavElite",
+        "designer": "김영수, 박혜진",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Kim Youngsoo", "Park Hyejin"]
+    },
+    {
+        "id": 6,
+        "number": "B06",
+        "subheading": "디자인 혁신을 위한 심층 분석",
+        "title": "Design Insight",
+        "designer": "오수진",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Oh Sujin"]
+    },
+    {
+        "id": 7,
+        "number": "C01",
+        "subheading": "스마트 홈 보안 시스템의 진화",
+        "title": "SafeHome",
+        "designer": "정유리",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Jung Yuri"]
+    },
+    {
+        "id": 8,
+        "number": "D02",
+        "subheading": "차세대 내비게이션 디자인",
+        "title": "NavNext",
+        "designer": "유진석, 유늘이",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Yoo Jinseok", "Yoo Neuli"]
+    },
+    {
+        "id": 9,
+        "number": "A03",
+        "subheading": "미래의 디자인 접근법",
+        "title": "Design Trends",
+        "designer": "서진영",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Seo Jinyoung"]
+    },
+    {
+        "id": 10,
+        "number": "B04",
+        "subheading": "스마트 가전 시스템의 미래",
+        "title": "SmartFuture",
+        "designer": "장미래",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Jang Mirae"]
+    },
+    {
+        "id": 11,
+        "number": "C05",
+        "subheading": "내비게이션의 최신 혁신",
+        "title": "NavTech",
+        "designer": "석상현, 김지훈",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Suk Sanghyeon", "Kim Jihoon"]
+    },
+    {
+        "id": 12,
+        "number": "D06",
+        "subheading": "디자인의 다양한 분석 방법론",
+        "title": "Design Methods",
+        "designer": "이형석",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Lee Hyungseok"]
+    },
+    {
+        "id": 13,
+        "number": "A07",
+        "subheading": "스마트 홈의 혁신적 디자인 솔루션",
+        "title": "Innovative Home",
+        "designer": "정민경",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Jung Mingyeong"]
+    },
+    {
+        "id": 14,
+        "number": "B08",
+        "subheading": "차세대 내비게이션 플랫폼",
+        "title": "NavExplorer",
+        "designer": "윤상희, 김태희",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Yoon Sanghee", "Kim Taehui"]
+    },
+    {
+        "id": 15,
+        "number": "C09",
+        "subheading": "디자인의 미래를 선도하다",
+        "title": "Leading Design",
+        "designer": "전지현",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Jeon Jihyun"]
+    },
+    {
+        "id": 16,
+        "number": "D10",
+        "subheading": "스마트 홈 환경의 최적화",
+        "title": "HomeOptima",
+        "designer": "안승철",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Ahn Seungcheol"]
+    },
+    {
+        "id": 17,
+        "number": "A11",
+        "subheading": "혁신적인 내비게이션 기술",
+        "title": "NavRevolution",
+        "designer": "김미래, 이성호",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Kim Mirae", "Lee Seongho"]
+    },
+    {
+        "id": 18,
+        "number": "B12",
+        "subheading": "디자인 분석의 새로운 접근법",
+        "title": "New Design",
+        "designer": "이은지",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Lee Eunji"]
+    },
+    {
+        "id": 19,
+        "number": "C13",
+        "subheading": "스마트 홈 디자인의 미래",
+        "title": "FutureHome",
+        "designer": "조윤희",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Cho Yoonhee"]
+    },
+    {
+        "id": 20,
+        "number": "D14",
+        "subheading": "스마트 내비게이션 시스템의 혁신",
+        "title": "NavSmart",
+        "designer": "최우혁, 박현우",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Choi WooHyuk", "Park Hyunwoo"]
+    },
+    {
+        "id": 21,
+        "number": "A15",
+        "subheading": "디자인의 진화와 혁신",
+        "title": "Design Evolution",
+        "designer": "김성호",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Kim Seongho"]
+    },
+    {
+        "id": 22,
+        "number": "B16",
+        "subheading": "스마트 홈의 차별화된 접근",
+        "title": "Distinctive Home",
+        "designer": "홍정민",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Hong Jungmin"]
+    },
+    {
+        "id": 23,
+        "number": "A16",
+        "subheading": "스마트 홈의 최신 트렌드",
+        "title": "SmartTrends",
+        "designer": "이준호",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Lee Junho"]
+    },
+    {
+        "id": 24,
+        "number": "B17",
+        "subheading": "내비게이션의 새로운 패러다임",
+        "title": "NavParadigm",
+        "designer": "정수현",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Jung Soohyun"]
+    },
+    {
+        "id": 25,
+        "number": "C17",
+        "subheading": "혁신적 디자인 접근법",
+        "title": "Innovative Trends",
+        "designer": "하승연",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Ha Seungyeon"]
+    },
+    {
+        "id": 26,
+        "number": "D17",
+        "subheading": "스마트 내비게이션의 미래",
+        "title": "NavFuture",
+        "designer": "박상철",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Park Sangcheol"]
+    },
+    {
+        "id": 27,
+        "number": "A17",
+        "subheading": "스마트 홈 디자인의 새로운 가능성",
+        "title": "SmartPossibilities",
+        "designer": "강지민",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Kang Jimin"]
+    },
+    {
+        "id": 28,
+        "number": "B18",
+        "subheading": "최첨단 내비게이션 솔루션",
+        "title": "NavSolutions",
+        "designer": "문지연",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/IxU7d1619428382.jpg",
+        "engname": ["Moon Jiyeon"]
+    },
+    {
+        "id": 29,
+        "number": "C18",
+        "subheading": "미래 디자인의 진화",
+        "title": "Evolving Design",
+        "designer": "조미래",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwoFM-0GQgjgDHKUmG_N-a_7zTfveq61rVLg&s",
+        "engname": ["Cho Mirae"]
+    },
+    {
+        "id": 30,
+        "number": "D18",
+        "subheading": "스마트 환경 디자인의 혁신",
+        "title": "Innovative Environments",
+        "designer": "서지훈",
+        "image": "https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg",
+        "engname": ["Seo Jihoon"]
+    }
+]
