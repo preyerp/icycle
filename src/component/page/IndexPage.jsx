@@ -131,6 +131,7 @@ const StudentName = styled.div`
   position: relative;
   z-index: 10;
   padding-bottom: 10px;
+  text-transform: none;
   &:hover {
     color: #999999;
   }

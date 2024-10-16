@@ -240,10 +240,15 @@ const ProfileTexttwo = styled.div`
 const GuestbookButton = styled.button`
   background-color: #ffffff; 
   font-weight: 500;
-  border: 1.5px solid #d9d9d9;
+  border: 1.5px solid #000;
   padding: 6px 8px;
   font-size: 14px;
   cursor: pointer;
+    transition: all 0.5s ease;
+  &:hover {
+        background-color:#000;
+        color: #fff;
+    }
 
   @media (max-width: 768px) {
    font-size: 12px;
@@ -422,7 +427,7 @@ function PostViewPage() {
             <ProfileContainer key={index}>
               <ProfileBox style={{ backgroundImage: `url(${member.profilePic})` }} />
               <ProfileInfo>
-                <ProfileText>{member.department.slice(0, -1)+"전공"}</ProfileText>
+                <ProfileText>{member.department.slice(0, -1) + "전공"}</ProfileText>
                 <ProfileTexttwo>
                   <span style={{ marginRight: '4px' }}>{member.name}</span>
                   <span>{member.englishName}</span>  {/* 영어 이름을 data.json의 engname에서 가져옴 */}
@@ -435,11 +440,11 @@ function PostViewPage() {
           ))}
         </ProfileWrap>
 
-        <Pagination>
+        {/* <Pagination>
           <PaginationButton onClick={goToPreviousPost} disabled={currentIndex === 0}>PREV</PaginationButton>
           <Slash>/</Slash>
           <PaginationButton onClick={goToNextPost} disabled={currentIndex === postData.length - 1}>NEXT</PaginationButton>
-        </Pagination>
+        </Pagination> */}
       </ProfileSection>
 
       <Footer></Footer>

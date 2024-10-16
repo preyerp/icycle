@@ -13,6 +13,35 @@ body {
 
 }
 
+/* 기본적인 브라우저 초기화 */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  /* iOS 스크롤 이슈 해결 */
+}
+
+/* 모바일 디바이스에서의 버튼, 인풋 스타일 초기화 */
+input,
+button,
+textarea {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-family: inherit;
+}
+
+/* HTML, Body 설정 */
+html,
+body {
+  line-height: 1.5; /* 줄간격 */
+  overflow-x: hidden;
+  /* 수평 스크롤 방지 */
+}
+
 body {
   margin: 0;
   font-family: 'Pretendard Variable', sans-serif;
@@ -28,6 +57,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
   @media (max-width: 768px) {
     font-size: 12px;
   }
@@ -51,7 +81,7 @@ body {
     background-color: #000;
     /* 스크롤바 색상 */
     /*border-radius: 10px;  둥근 모서리 */
-    border: 2px solid transparent;  
+    border: 2px solid transparent;
   }
 
   /* 스크롤바 호버 시 스타일 */

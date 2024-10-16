@@ -120,7 +120,7 @@ const MobileNav = ({ onClose }) => {
               navigate('/');
               handleClose(); // 로고 클릭 시 네비게이션 닫힘
             }}
-            src="https://i.postimg.cc/FHnJ8vM2/Group-1000004358.png"
+            src="/iceflower/icycle모두에게.png" 
             alt="Logo"
           />
         </Logobutton>
@@ -128,6 +128,16 @@ const MobileNav = ({ onClose }) => {
       </Header>
 
       {/* 현재 페이지와 일치하는 메뉴는 검정색으로 표시 */}
+      <NavItem
+        isActive={location.pathname === '/'}
+        onClick={() => {
+          navigate('/');
+          handleClose();
+        }}
+      >
+        HOME
+      </NavItem>
+      
       <NavItem
         isActive={location.pathname === '/intro'}
         onClick={() => {

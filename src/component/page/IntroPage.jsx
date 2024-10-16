@@ -196,7 +196,7 @@ const BottomButton = styled.button`
 `;
 
 const DetailTxt = styled.div`
-  width: 38%;
+  width: auto;
   /* margin-bottom: 120px; */
   @media (max-width: 768px) {
     
@@ -268,25 +268,25 @@ function IntroPage() {
     {
       id: 1,
       videoUrl:
-        'https://player.vimeo.com/video/1019497945?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
+        'https://player.vimeo.com/video/1019852340?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
       description: 'In the whirlwind of ‘ICYCLE’ \n 순환적 과정을 통해 우리의 결정이 형성되는 과정',
     },
     {
       id: 2,
       videoUrl:
-        'https://player.vimeo.com/video/1019495068?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
+        'https://player.vimeo.com/video/1019809556?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
       description: 'Endless, yet special \n 끝없는, 그럼에도 특별한',
     },
     {
       id: 3,
       videoUrl:
-        'https://player.vimeo.com/video/1019496153?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
+        'https://player.vimeo.com/video/1019874341?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
       description: 'Collection of moments \n 순간의 집합체',
     },
     {
       id: 4,
       videoUrl:
-        'https://player.vimeo.com/video/1019496803?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
+        'https://player.vimeo.com/video/1019814167?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0&title=0&byline=0&portrait=0',
       description: 'Collection of moments \n 순간의 집합체',
     },
   ];

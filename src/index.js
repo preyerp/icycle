@@ -10,10 +10,12 @@ import RealMain from './component/page/RealMain';
 import IntroPage from './component/page/IntroPage';
 // import GuestBookPage from './component/page/Guestbook';
 import Guestbook from './component/page/Guestbook';
+import ScrollToTop from './component/ui/ScrollToTop';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <ClickCountProvider>
+      <ScrollToTop />
       <Routes>
         <Route index element={<RealMain />} />
         <Route path="intro" element={<IntroPage />} />
@@ -25,4 +27,3 @@ root.render(
     </ClickCountProvider>
   </BrowserRouter>
 );
-  
