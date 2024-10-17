@@ -271,6 +271,8 @@ const DropdownMenu = styled.ul`
   max-height: 300px;
   overflow-y: auto;
   text-align: center;
+  -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+  z-index: 999; /* 뒤에 있는 요소가 앞에 나타나는 문제 해결 */
 
   &::-webkit-scrollbar {
     width: 5px;
