@@ -24,7 +24,6 @@ const SemiWrapper = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: scroll; /* 스크롤바가 보이도록 설정 */
-  z-index:90000;
   
 `;
 const Wrapper = styled.div`

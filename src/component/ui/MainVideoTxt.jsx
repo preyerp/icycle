@@ -7,7 +7,7 @@ const BottomTxtContent = styled.div`
     mix-blend-mode: difference;
     width: 100%;
     height: 40px;
-    z-index: 88;
+    z-index: 48;
     position: fixed; /* Fixed positioning for always sticking to the bottom */
     top: 48%;
     display: flex;
