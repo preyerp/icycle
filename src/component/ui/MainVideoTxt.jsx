@@ -180,6 +180,7 @@ function MainVideoTxt({ categoryText, colorHex, topic, keyword, time, year }) {
                 <Bcode2 animate={isAnimating}>{displayBcode2}</Bcode2>
             </Bcode2Wrapper>
         </BottomTxtContent>
+    
     );
 }
 

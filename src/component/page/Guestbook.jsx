@@ -262,7 +262,7 @@ const DropdownButton = styled.div`
 const DropdownMenu = styled.ul`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   position: absolute;
-  background-color: #000;
+  background-color: red;
   color: #fff;
   padding: 0;
   list-style: none;
@@ -321,6 +321,7 @@ function Guestbook() {
 
 
   const [nameData, setNameData] = useState([]);
+  const [designerData, setDesignerData] = useState([]);
   const [messages, setMessages] = useState([]);
   const [filteredMessages, setFilteredMessages] = useState([]); // 필터링된 메시지 저장
 
@@ -344,9 +345,13 @@ function Guestbook() {
 
       // 디자이너 목록과 이름 배열을 동시에 생성
       const designerList = designerSnapshot.docs.map((doc) => ({
-        id: doc.id,
+        id: parseInt(doc.id, 10), // ID를 숫자로 변환 (가능한 경우)
         name: doc.data().name,
       }));
+
+      const designerArrayTemp = designerList.sort((a, b) => a.id - b.id);
+      designerArrayTemp.unshift({ id: 0, name: "모두에게" });
+      setDesignerData(designerArrayTemp)
 
       const nameArrayTemp = designerList.map(designer => designer.name); // name 필드만 추출한 배열
 
@@ -360,7 +365,6 @@ function Guestbook() {
       console.error("디자이너 데이터를 불러오는 중 오류 발생: ", error);
     }
   };
-
   // Firestore에서 모든 편지 목록 불러오기 (최근 작성 순)
   const fetchAllMessages = async () => {
     try {
@@ -392,7 +396,7 @@ function Guestbook() {
   }, [filteredReceiver, messages]);
 
 
-  const addComment = async (receiver, author, body) => {    // 메시지작성 수정함
+  const addComment = async (receiverId, receiver, author, body) => {    // 메시지작성 수정함
     const messagesCollection = collection(db, 'messages');
 
 
@@ -400,6 +404,7 @@ function Guestbook() {
       author,
       body,
       receiver: receiver,
+      id: receiverId,
       timestamp: Timestamp.now()
     });
   };
@@ -469,7 +474,7 @@ function Guestbook() {
           <CommentItem key={index}>
             <CommentHeader>
               <CommentReceiver>
-                <Icon src={`/iceflower/icycle${message.receiver}.png`}></Icon>
+                <Icon src={`/iceflower/icycle${message.id}.png`}></Icon>
                 {message.receiver}
               </CommentReceiver>
               <CommentBody>{message.body}</CommentBody>
@@ -498,7 +503,7 @@ function Guestbook() {
             isClosing={isClosing}
             onAnimationEnd={handleAnimationEnd} // 애니메이션 종료 시점 확인
           >
-            <PopupChat refreshCount={refreshCount} setRefreshCount={setRefreshCount} closePopup={handleClosePopup} addComment={addComment} designerList={nameData} />
+            <PopupChat refreshCount={refreshCount} setRefreshCount={setRefreshCount} closePopup={handleClosePopup} addComment={addComment} designerData={designerData} designerNameList={nameData} />
           </AnimatedPopupChat>
         </>
       )}

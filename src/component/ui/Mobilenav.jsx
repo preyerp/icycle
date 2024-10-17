@@ -120,7 +120,7 @@ const MobileNav = ({ onClose }) => {
               navigate('/');
               handleClose(); // 로고 클릭 시 네비게이션 닫힘
             }}
-            src="/iceflower/icycle모두에게.png" 
+            src="/iceflower/icycle0.png" 
             alt="Logo"
           />
         </Logobutton>

@@ -117,7 +117,7 @@ function Sidenav() {
               isIntro={isIntro} 
               onClick={() => { navigate('/'); }} 
               // src="https://i.postimg.cc/FHnJ8vM2/Group-1000004358.png" 
-              src="/iceflower/icycle모두에게.png" 
+              src="/iceflower/icycle0.png" 
               alt="Logo" 
             />
           </Logobutton>

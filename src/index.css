@@ -37,8 +37,8 @@ textarea {
 /* HTML, Body 설정 */
 html,
 body {
-  line-height: 1.5; /* 줄간격 */
-  overflow-x: hidden;
+  line-height: 1.5; /* 줄간격*/
+  /* overflow-x: hidden; */
   /* 수평 스크롤 방지 */
 }
 

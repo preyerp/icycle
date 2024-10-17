@@ -20,9 +20,11 @@ const RealWrap = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 80px;
+  height: calc(100vh - 126px);
+  margin-top: 54px;
   background-color: #fff;
   box-sizing: border-box;
+  position: fixed;
 
   
 `;
@@ -51,7 +53,7 @@ function Mainpage() {
       setLoading(true);
       try {
         // Firestore에서 'projects' 컬렉션의 모든 문서 불러오기
-        const q = query(collection(db, "projects"), orderBy("title", "asc"));
+        const q = query(collection(db, "newProjects"), orderBy("title", "asc"));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {

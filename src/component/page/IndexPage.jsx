@@ -9,27 +9,41 @@ import { db } from "../../firebase"; // Firebase Firestore 연결
 
 // Styled components
 const PageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100vw;
   height: 100vh;
   background-color: #fff;
 `;
 
 const IndexContent = styled.div`
-  margin-top: 80px;
+  width: 44%;
+  height: 100%;
+  position: absolute;
+  left: 55.8%;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-left: 15px;
+    left: 0;
+  }
 `;
 
+const TopBarContainer = styled.div`
+  width: 100%;
+  height: 120px;
+  position: relative;
+
+  font-weight: 400;
+`;
 const TopBar = styled.div`
   width: 100%;
+  position: absolute;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;
   box-sizing: border-box;
-  z-index: 100;
   font-weight: 400;
 `;
-
 const DesignerCount = styled.div`
   font-size: 14px;
   margin-left: 56%;
@@ -54,27 +68,40 @@ const SearchBarWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
   width: 100%;
-  padding: 0 15px;
-  margin-top: 80px;
+  height: calc(100vh - 120px);
+  position: relative;
 `;
 
 const LeftSection = styled.div`
   width: 56%;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left:0;
   display: flex;
   justify-content: center;
   align-items: start;
-  padding-top: 5vh;
 
   @media (max-width: 768px) {
     display: none;
   }
 `;
+const GridContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
 
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 const IconGrid = styled.div`
   display: grid;
-  position: fixed;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(9, 1fr);
   grid-gap: 11px;
@@ -95,8 +122,10 @@ const Icon = styled.img`
 `;
 
 const RightSection = styled.div`
-  width: 44%;
-  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-top: 80px;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -226,7 +255,7 @@ function IndexPage() {
       setLoading(true);
       try {
         // Firestore에서 'projects' 컬렉션의 모든 문서 불러오기
-        const q = query(collection(db, "projects"), orderBy("title", "asc"));
+        const q = query(collection(db, "newProjects"), orderBy("title", "asc"));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
@@ -241,10 +270,10 @@ function IndexPage() {
             if (data.teamMembers && data.teamMembers.length > 0) {
               data.teamMembers.forEach((member) => {
                 allPosts.push({
+                  id: member.sId || '',           // 팀원 아이디
                   name: member.name || '',           // 팀원 이름
                   englishName: member.englishName || '', // 팀원 영어 이름
                   projectId: data.projectId,          // 프로젝트 ID
-                  profileImg: member.profilePic,  // 팀원 이미지
                 });
               });
             }
@@ -266,21 +295,24 @@ function IndexPage() {
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
-
+  console.log("randomName")
+  console.log(randomName)
   useEffect(() => {
     if (!loading) { // 로딩이 완료되면 실행
       const designerList = [];
 
       posts.forEach((post, index) => {
         const initial = getInitial(post.name); // 디자이너 이름에서 이니셜 추출
+
+        console.log("post")
+        console.log(post)
         if (initial !== '기타') {
           designerList.push({
-            id: index + 1,
+            id: post.id,
             name: post.name,
             englishName: post.englishName,
             initial: initial,
             projectId: post.projectId,
-            profileImg: post.profileImg,
           });
         }
       });
@@ -324,53 +356,52 @@ function IndexPage() {
     setHoveredImage({ visible: false, x: 0, y: 0, src: '' });
   };
 
-  const groupedByInitial = filteredData.reduce((acc, { id, name, englishName, initial, projectId, profileImg }) => {
+  const groupedByInitial = filteredData.reduce((acc, { id, name, englishName, initial, projectId }) => {
     if (!acc[initial]) acc[initial] = [];
-    acc[initial].push({ id, name, englishName, projectId, profileImg });
+    acc[initial].push({ id, name, englishName, projectId });
     return acc;
   }, {});
 
   return (
     <PageWrapper>
       <Sidenav />
-      <IndexContent>
+      <TopBarContainer>
         <TopBar>
           <DesignerCount>DESIGNERS ({totalDesigners})</DesignerCount>
           <SearchBarWrapper>
             <SearchBar onSearch={handleSearch} />
           </SearchBarWrapper>
         </TopBar>
+      </TopBarContainer>
+      <LeftSection>
+        <GridContainer>
+          <IconGrid>
+            {randomName.map((designer) => (
+              <SnowflakeIcon
+                key={designer.id}
+                src={`/iceflower/icycle${designer.id}.png`}
+                style={{
+                  opacity: hoveredId && hoveredId !== designer.id ? 0.2 : 1, // hoveredId와 일치하지 않으면 투명도 0.5
+                  transition: 'opacity 0.3s ease' // 부드러운 전환 효과
+                }}
+              />
+            ))}
+          </IconGrid>
+        </GridContainer>
+      </LeftSection>
 
-        <ContentWrapper>
-          <LeftSection>
-            <IconGrid>
-
-              {/* {Array.from({ length: 90 }).map((_, index) => (
-                <SnowflakeIcon key={index} src={`/iceflower/icycle홍성주.png`} />
-              ))} */}
-              {randomName.map((designer) => (
-                <SnowflakeIcon
-                  key={designer.id}
-                  src={`/iceflower/icycle${designer.name}.png`}
-                  style={{
-                    opacity: hoveredId && hoveredId !== designer.id ? 0.2 : 1, // hoveredId와 일치하지 않으면 투명도 0.5
-                    transition: 'opacity 0.3s ease' // 부드러운 전환 효과
-                  }}
-                />
-              ))}
-            </IconGrid>
-          </LeftSection>
-
+      <ContentWrapper>
+        <IndexContent>
           <RightSection>
             {Object.entries(groupedByInitial).map(([initial, designers]) => (
               <InitialList key={initial}>
                 <NameSection>{`${initial} (${designers.length})`}</NameSection>
                 <StudentNames>
-                  {designers.map(({ id, name, englishName, projectId, profileImg }) => (
+                  {designers.map(({ id, name, englishName, projectId }) => (
                     <StudentName
                       key={id}
                       onClick={() => handleNameClick(projectId)}
-                      onMouseEnter={(e) => handleMouseEnter(e, `/profilelow/저화질_${name}.jpg`, id)}
+                      onMouseEnter={(e) => handleMouseEnter(e, `/profilelow/low${id}.jpg`, id)}
                       onMouseLeave={handleMouseLeave}
                       dangerouslySetInnerHTML={{ __html: `${name}&nbsp;&nbsp;&nbsp;${englishName}` }}
                     />
@@ -380,10 +411,9 @@ function IndexPage() {
               </InitialList>
             ))}
           </RightSection>
-        </ContentWrapper>
-      </IndexContent>
+        </IndexContent>
+      </ContentWrapper>
 
-      {/* Hover Image */}
       <HoverImage
         src={hoveredImage.src}
         x={hoveredImage.x}

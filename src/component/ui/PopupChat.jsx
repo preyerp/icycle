@@ -167,7 +167,7 @@ const Label = styled.div`
   }
 `;
 
-function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, designerList }) {
+function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, designerData, designerNameList }) {
   const [chat, setChat] = useState([
     {
       message: `졸업생들의 4년간의 성장과 노력의 결과물을 어떻게 보셨나요?\n그들을 가까이 지켜봐 온 여러분의 사랑과 응원이 담긴 메시지가\n앞으로의 졸업생들의 앞날에 큰 힘이 될 것입니다.`,
@@ -179,6 +179,7 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
     },
   ]);
   const [receiver, setReceiver] = useState('');  // 받는 사람 상태
+  const [receiverId, setReceiverId] = useState('');  // 받는 사람 id
   const [message, setMessage] = useState('');    // 메시지 내용 상태
   const [sender, setSender] = useState('');      // 보낸 사람 상태
   const [step, setStep] = useState(1);           // 단계 관리
@@ -188,7 +189,10 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
   const inputRef = useRef(null);
   const chatContainerRef = useRef(null);
 
-
+  const findIdByName = (name) => {
+    const designer = designerData.find(designer => designer.name === name);
+    return designer ? designer.id : null; // 이름을 찾으면 id를 반환, 없으면 null
+  };
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -206,7 +210,7 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
 
     if (step === 1) {
       setReceiver(value);  // step 1에서 받는 사람 입력 처리
-      const filteredSuggestions = designerList.filter((name) =>
+      const filteredSuggestions = designerNameList.filter((name) =>
         name.startsWith(value)
       );
       setNameSuggestions(filteredSuggestions);
@@ -214,6 +218,8 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
       setIsReceiverValid(filteredSuggestions.includes(value));
     } else if (step === 2) {
       setMessage(value);  // step 2에서 메시지 입력 처리
+      const id = findIdByName(receiver);
+      setReceiverId(id);
     } else if (step === 3) {
       setSender(value);   // step 3에서 보낸 사람 입력 처리
     }
@@ -285,11 +291,11 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
         ]);
 
         // addComment에 올바른 값 전달
-        addComment(receiver, sender, message);
+        addComment(receiverId, receiver, sender, message);
 
         setTimeout(() => {
           resetChat(); // "감사합니다"가 나오면 채팅과 인풋 초기화
-          setRefreshCount(refreshCount+1);
+          setRefreshCount(refreshCount + 1);
         }, 2000);
       }, 500);
     }

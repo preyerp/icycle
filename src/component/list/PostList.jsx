@@ -8,18 +8,29 @@ import ImageGrid from './ImageGrid';
 
 const RealWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #fff;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   position: relative;
+    ::-webkit-scrollbar {
+    width: 15px;
+    /* 세로 스크롤바의 너비 */
+    height: 15px;
+    /* 가로 스크롤바의 높이 */
+  }
 `;
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   background-color: #fff;
   position: relative;
+  overflow-y: scroll;
+  padding-left:15px;
+  
+
 `;
 
 const TableRow = styled.div`
@@ -166,20 +177,14 @@ const MobileSearchBarWrapper = styled.div`
     display: block;
   }
 `;
+const FixTop = styled.div`
+  position: static;
+  top:0;
+  width: 100%;
 
-
-const preloadImages = (imageSources) => {
-  const promises = imageSources.map(
-    (src) =>
-      new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = resolve;
-      })
-  );
-  return Promise.all(promises);
-};
-
+  @media (max-width: 768px) {
+  }
+`;
 function PostList({ posts, onCategorySelect }) {
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState('IMG');
@@ -189,27 +194,16 @@ function PostList({ posts, onCategorySelect }) {
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobileCategoryVisible, setIsMobileCategoryVisible] = useState(false);
-  const [loadedImages, setLoadedImages] = useState([]); // 이미지 로딩 상태 저장
 
-
-  
-  const [test, setTest] = useState(''); // 썸네일 테스트용
-
-  useEffect(() => {
-    if (posts.length !== 0) {
-      const imageSources = posts.map(post => `/thumbs/${post.projectId}.jpg`);
-      preloadImages(imageSources).then(() => {
-        setLoadedImages(imageSources); // 모든 이미지가 로딩되면 로딩된 이미지 목록 업데이트
-      });
-      setTest(posts[2].images.mainImage); // 썸네일 테스트용
-    }
-  }, [posts]);
+  const [test, setTest] = useState(''); //썸네일테스트용
 
   useEffect(() => {
     updateFilteredPosts(posts, selectedCategory, searchTerm);
+
   }, [posts, selectedCategory, sortOrder, searchTerm]);
 
-  const updateFilteredPosts = useCallback((posts, category, searchTerm) => {
+  const updateFilteredPosts = useCallback((posts, category, searchTerm) => {  // 필터함수같고
+    console.log(category)
     let filtered = [];
     if (category === 'all') {
       filtered = posts;
@@ -230,9 +224,12 @@ function PostList({ posts, onCategorySelect }) {
     if (searchTerm) {
       filtered = filtered.filter(post => {
         const matchesTitle = post.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+        // 팀원이 여러 명일 경우에도 처리
         const matchesDesigner = post.teamMembers.some(member =>
           member.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
+
         const matchesSubheading = viewMode === 'TXT' && post.subtitle.toLowerCase().includes(searchTerm.toLowerCase());
 
         return matchesTitle || matchesDesigner || matchesSubheading;
@@ -243,7 +240,7 @@ function PostList({ posts, onCategorySelect }) {
     setFilteredPosts(filtered);
   }, [sortOrder, viewMode]);
 
-  const sortPosts = (posts, order = sortOrder) => {
+  const sortPosts = (posts, order = sortOrder) => { // 정렬 함수 같고
     return posts.sort((a, b) => {
       if (a.projectId.charAt(0) !== b.projectId.charAt(0)) {
         return order === 'asc'
@@ -279,49 +276,30 @@ function PostList({ posts, onCategorySelect }) {
     setFilteredPosts(sortedPosts);
   };
 
-  const handleMouseEnter = (imageSrc) => {
-    const img = new Image();
-    img.src = imageSrc;
+  const handleMouseEnter = (imageSrc, originalWidth, originalHeight) => {
+    // 현재 스크롤 위치
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
 
-    img.onload = () => {
-      const originalWidth = img.naturalWidth;
-      const originalHeight = img.naturalHeight;
+    // 랜덤 좌표 설정 (화면 내 위치에 이미지 표시)
+    const x = scrollX + Math.random() * (window.innerWidth - originalWidth);
+    const y = scrollY + Math.random() * (window.innerHeight - originalHeight);
+    console.log("scrollY")
+    console.log(scrollY)
+    console.log("x,y")
+    console.log(x, y)
 
-      // 원하는 최대 너비와 최대 높이 설정
-      const maxWidth = 400;
-      const maxHeight = 400;
-
-      // 비율 유지하며 크기 조정
-      let width = originalWidth;
-      let height = originalHeight;
-
-      if (width > maxWidth || height > maxHeight) {
-        const widthRatio = maxWidth / width;
-        const heightRatio = maxHeight / height;
-        const ratio = Math.min(widthRatio, heightRatio);
-
-        width = width * ratio;
-        height = height * ratio;
-      }
-
-      // 현재 스크롤 위치
-      const scrollX = window.scrollX;
-      const scrollY = window.scrollY;
-
-      // 랜덤 좌표 설정 (화면 내 위치에 이미지 표시)
-      const x = scrollX + Math.random() * (window.innerWidth - width);
-      const y = scrollY + Math.random() * (window.innerHeight - height);
-
-      setHoverImage({
-        visible: true,
-        src: imageSrc,
-        x,
-        y,
-        width: width,
-        height: height,
-      });
-    };
+    setHoverImage({
+      visible: true,
+      src: imageSrc,
+      x,
+      y,
+      width: originalWidth,
+      height: originalHeight,
+    });
   };
+
+
 
   const handleMouseLeave = () => {
     setHoverImage({ visible: false, src: '', x: 0, y: 0, width: 200, height: 150 });
@@ -335,19 +313,22 @@ function PostList({ posts, onCategorySelect }) {
     navigate(`/projects/${postNumber}`);
   };
 
+
   return (
     <RealWrap>
-      <Container>
-        <TableRow marginBottom="80px" MmarginBottom="54px" paddingLeft="15px" paddingRight="15px">
-          <TableCell width="20%" mobileWidth="52%">Projects ({filteredPosts.length})</TableCell>
-          <TableCell width="36%" mobileWidth="30%" onClick={() => setIsMobileCategoryVisible(!isMobileCategoryVisible)}>
+      <FixTop>
+        {/* 상단: CategoryBar, SearchBar */}
+        <TableRow style={{}} marginBottom="36px" MmarginBottom="54px" paddingLeft="15px" paddingRight="15px">
+          <TableCell width="20%" mobileWidth='52%'>Projects ({filteredPosts.length})</TableCell>
+          <TableCell width="36%" mobileWidth='30%' onClick={() => setIsMobileCategoryVisible(!isMobileCategoryVisible)}>
             <CategoryBar
               width="100%"
               selectedCategory={selectedCategory}
               onCategorySelect={handleCategorySelect}
             />
           </TableCell>
-          <TableCell width="20%" mobileWidth="18%" textAlign="right">
+          <TableCell width="20%" mobileWidth='18%' textAlign='right'>
+            {/* 모드 전환 버튼 */}
             <span
               onClick={handleViewToggle}
               style={{ cursor: 'pointer', color: viewMode === 'IMG' ? '#000' : '#888' }}
@@ -362,47 +343,74 @@ function PostList({ posts, onCategorySelect }) {
               TXT
             </span>
           </TableCell>
-          <DesktopSearchBarWrapper>
+          {/* 기존 SearchBar는 데스크탑에서만 보이게 */}
+          <DesktopSearchBarWrapper >
             <SearchBar width="200px" onSearch={handleSearch} />
           </DesktopSearchBarWrapper>
         </TableRow>
 
+        {/* 모바일에서만 카테고리 바 보이기 */}
         <MobileCategoryContainer isMobileCategoryVisible={isMobileCategoryVisible}>
           <MobileCategoryBar selectedCategory={selectedCategory} onCategorySelect={handleCategorySelect} />
         </MobileCategoryContainer>
+      </FixTop>
 
+      {viewMode === 'TXT' && (
+        <>
+          <TableRow key="header" marginBottom="24px" paddingLeft="15px" paddingRight="15px">
+            <TNumberSearchWrapper>
+              <TableCell width="50%" onClick={handleSortChange}>
+                Number
+                <Arrow direction={sortOrder === 'asc' ? 'down' : 'up'} color="#000" size="5px" />
+              </TableCell>
+              <MobileSearchBarWrapper>
+                <SearchBar width="100px" textAlign='left' onSearch={handleSearch} />
+              </MobileSearchBarWrapper>
+            </TNumberSearchWrapper>
+            <TableCell width="36%" hideOnMobile>Subtitle</TableCell>
+            <TableCell width="20%" hideOnMobile>Title</TableCell>
+            <TableCell width="24%" hideOnMobile>Designer</TableCell>
+          </TableRow>
+        </>
+      )}
+
+      {viewMode === 'IMG' && (
+        <>
+          <TableRow key="sort-button" paddingLeft="15px" paddingRight="15px" marginBottom="24px">
+            <NumberSearchWrapper>
+              <TableCell onClick={handleSortChange}>
+                Number
+                <Arrow direction={sortOrder === 'asc' ? 'down' : 'up'} color="#000" size="5px" />
+              </TableCell>
+              <MobileSearchBarWrapper>
+                <SearchBar width="100px" textAlign='left' onSearch={handleSearch} />
+              </MobileSearchBarWrapper>
+            </NumberSearchWrapper>
+          </TableRow>
+        </>
+      )}
+      <Container>
         {viewMode === 'TXT' && (
           <>
-            <TableRow key="header" marginBottom="24px" paddingLeft="15px" paddingRight="15px">
-              <TNumberSearchWrapper>
-                <TableCell onClick={handleSortChange}>
-                  Number
-                  <Arrow direction={sortOrder === 'asc' ? 'down' : 'up'} color="#000" size="5px" />
-                </TableCell>
-                <MobileSearchBarWrapper>
-                  <SearchBar width="100px" textAlign="left" onSearch={handleSearch} />
-                </MobileSearchBarWrapper>
-              </TNumberSearchWrapper>
-              <TableCell width="36%" hideOnMobile>Subtitle</TableCell>
-              <TableCell width="20%" hideOnMobile>Title</TableCell>
-              <TableCell width="24%" hideOnMobile>Designer</TableCell>
-            </TableRow>
             {filteredPosts.map((post, index) => (
               <TableRow
-                paddingLeft="15px"
+                paddingLeft="5px"
                 paddingRight="15px"
                 paddingBottom="10px"
                 hoverColor="#9d9d9d"
                 key={post.projectId}
-                onMouseEnter={() => handleMouseEnter(`/thumbs/${post.projectId}.jpg`)}
+                onMouseEnter={() => handleMouseEnter(`/thumbs/${post.projectId}.jpg`, 270, 360)}
+                // onMouseEnter={() => handleMouseEnter(Math.random() < 0.5 ? post.images.thumbnail : post.images.mainImage)}
+                // onMouseEnter={() => handleMouseEnter(Math.random() < 0.5 ? post.images.thumbnail : test)}
                 onMouseLeave={handleMouseLeave}
                 onClick={() => handlePostClick(post.projectId)}
                 style={{ marginBottom: index === filteredPosts.length - 1 ? '50px' : '0px' }}
               >
                 <TableCell width="20%">{post.projectId || 'N/A'}</TableCell>
-                <TableCell width="36%" hideOnMobile>{post.subtitle || 'N/A'}</TableCell>
+                {/* 모바일에서 subheading 숨김 */}
+                <TableCell width="36%" hideOnMobile={true}>{post.subtitle || 'N/A'}</TableCell>
                 <TableCell width="20%">{post.title || 'N/A'}</TableCell>
-                <TableCell textAlign="right" width="24%">
+                <TableCell textAlign='right' width="24%">
                   {post.teamMembers?.map((member, index) => (
                     <div key={index} style={{ float: 'left', whiteSpace: 'pre-wrap' }}>
                       {member.name + "  " || 'N/A'}
@@ -416,28 +424,19 @@ function PostList({ posts, onCategorySelect }) {
 
         {viewMode === 'IMG' && (
           <>
-            <TableRow key="sort-button" paddingLeft="15px" paddingRight="15px" marginBottom="24px">
-              <NumberSearchWrapper>
-                <TableCell onClick={handleSortChange}>
-                  Number
-                  <Arrow direction={sortOrder === 'asc' ? 'down' : 'up'} color="#000" size="5px" />
-                </TableCell>
-                <MobileSearchBarWrapper>
-                  <SearchBar width="100px" textAlign="left" onSearch={handleSearch} />
-                </MobileSearchBarWrapper>
-              </NumberSearchWrapper>
-            </TableRow>
             <GridWrapper style={{ marginBottom: '100px' }}>
               {filteredPosts.map(post => (
                 <>
+                  {/* {post.projectId === 'A01' && setTest(post.images.thumbnail)} */}
                   <CardUI
                     key={post.projectId}
                     onClick={() => handlePostClick(post.projectId)}
                   >
                     <img
                       src={`/thumbs/${post.projectId}.jpg`}
+                      // src={test}
                       alt={post.title}
-                      loading="lazy"
+                      // loading="lazy"
                       style={{
                         width: '100%',
                         height: 'auto',
@@ -471,6 +470,8 @@ function PostList({ posts, onCategorySelect }) {
           y={hoverImage.y}
           width={hoverImage.width}
           height={hoverImage.height}
+        // width={"428px"}
+        // height={"320px"}
         />
       </Container>
     </RealWrap>
@@ -478,4 +479,3 @@ function PostList({ posts, onCategorySelect }) {
 }
 
 export default PostList;
-

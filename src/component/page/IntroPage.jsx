@@ -12,12 +12,15 @@ const LoadingGif = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-const RealWrap=styled.div`
-/* background-color: red; */
+
+const RealWrap = styled.div`
+  
+
   @media (max-width: 768px) {
-   /* padding: 0; */
+    /* 모바일 버전에서 추가적인 스타일을 적용할 수 있습니다 */
   }
-`
+`;
+
 // Vimeo 영상을 담는 컨테이너
 const VideoContainer = styled.div`
   width: 100vw;
@@ -350,7 +353,7 @@ function IntroPage() {
                   setCurrentChapter(chapter.id); // 챕터 변경
                 }}
               >
-                CHAPTER 0{chapter.id-1}
+                CHAPTER 0{chapter.id - 1}
               </ChapterButton>
             ))}
           </ChapterButtonWrapper>

@@ -122,7 +122,7 @@ const StudentImagesContainer = styled.div`
 `;
 
 const StudentImage = styled.img`
-  width: 100%;
+  width: 60%;
   height: auto;
   object-fit: cover;
   display: block;
@@ -307,7 +307,12 @@ const Copyright = styled.div`
    font-size: 12px;
   }
 `;
-
+const Icon = styled.img`
+  width: 24px;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 16px;
+`;
 function PostViewPage() {
   const { pID } = useParams();
   const navigate = useNavigate();
@@ -321,7 +326,7 @@ function PostViewPage() {
     const fetchProjectData = async () => {
       setLoading(true);
       try {
-        const projectRef = doc(db, "projects", pID); // 특정 문서 ID로 Firestore에서 문서 참조
+        const projectRef = doc(db, "newProjects", pID); // 특정 문서 ID로 Firestore에서 문서 참조
         const projectSnap = await getDoc(projectRef);
 
         if (projectSnap.exists()) {
@@ -388,7 +393,7 @@ function PostViewPage() {
   return (
     <RealWrap>
       <Sidenav />
-      <MainImage style={{ backgroundImage: `url(${projectData.images.mainImage})` }} />
+      <MainImage style={{ backgroundImage: `url(/mainimg/main${projectData.projectId}.jpg)` }} />
       <TextContainer>
         <LeftText>
           <MainTitle>
@@ -409,7 +414,7 @@ function PostViewPage() {
       </TextContainer>
 
       <StudentImagesContainer>
-        <StudentImage src={projectData.images.infoImage} alt="학생 작품 이미지" />
+        <StudentImage src={`/infoimg/info${projectData.projectId}.jpg`} alt="학생 작품 이미지" />
         {/* Vimeo 영상 추가, Vimeo URL 동적으로 받아옴 */}
         <VimeoVideoWrapper>
           <VimeoVideo
@@ -424,9 +429,11 @@ function PostViewPage() {
         <ProfileWrap style={{ display: 'flex', alignItems: 'flex-start' }}>
 
           {projectData.teamMembers?.map((member, index) => (
-            <ProfileContainer key={index}>
-              <ProfileBox style={{ backgroundImage: `url(${member.profilePic})` }} />
+            <ProfileContainer key={member.sId}>
+              <ProfileBox style={{ backgroundImage: `url(/profilelow/low${member.sId}.jpg)` }} />
               <ProfileInfo>
+
+                <Icon src={`/iceflower/icycle${member.sId}.png`}></Icon>
                 <ProfileText>{member.department.slice(0, -1) + "전공"}</ProfileText>
                 <ProfileTexttwo>
                   <span style={{ marginRight: '4px' }}>{member.name}</span>
