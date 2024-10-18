@@ -14,12 +14,6 @@ const RealWrap = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-    ::-webkit-scrollbar {
-    width: 15px;
-    /* 세로 스크롤바의 너비 */
-    height: 15px;
-    /* 가로 스크롤바의 높이 */
-  }
 `;
 
 const Container = styled.div`
@@ -28,9 +22,6 @@ const Container = styled.div`
   background-color: #fff;
   position: relative;
   overflow-y: scroll;
-  padding-left:15px;
-  
-
 `;
 
 const TableRow = styled.div`
@@ -45,6 +36,32 @@ const TableRow = styled.div`
   position: relative;
   z-index: 10;
   cursor: pointer;
+  
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+    margin-bottom: ${props => props.MmarginBottom || '0px'};
+  }
+`;
+const TableRow2 = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  font-weight: 500;
+  align-items: center;
+  margin-bottom: ${props => props.marginBottom || '0px'};
+  padding-bottom: ${props => props.paddingBottom || '0px'};
+  padding-left: ${props => props.paddingLeft || '0px'};
+  padding-right: ${props => props.paddingRight || '0px'};
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  
+  &:hover {
+    color: #999999;
+  }
 
   @media (max-width: 768px) {
     flex-direction: row;
@@ -170,6 +187,14 @@ const DesktopSearchBarWrapper = styled.div`
   }
 `;
 
+
+const ProjImg = styled.img`
+  transition: filter 0.3s ease; /* 부드럽게 변화하도록 트랜지션 추가 */
+
+  &:hover {
+    filter: grayscale(100%);
+  }
+`;
 const MobileSearchBarWrapper = styled.div`
   display: none;
 
@@ -185,6 +210,9 @@ const FixTop = styled.div`
   @media (max-width: 768px) {
   }
 `;
+
+
+
 function PostList({ posts, onCategorySelect }) {
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState('IMG');
@@ -393,7 +421,7 @@ function PostList({ posts, onCategorySelect }) {
         {viewMode === 'TXT' && (
           <>
             {filteredPosts.map((post, index) => (
-              <TableRow
+              <TableRow2
                 paddingLeft="5px"
                 paddingRight="15px"
                 paddingBottom="10px"
@@ -417,7 +445,7 @@ function PostList({ posts, onCategorySelect }) {
                     </div>
                   ))}
                 </TableCell>
-              </TableRow>
+              </TableRow2>
             ))}
           </>
         )}
@@ -432,7 +460,7 @@ function PostList({ posts, onCategorySelect }) {
                     key={post.projectId}
                     onClick={() => handlePostClick(post.projectId)}
                   >
-                    <img
+                    <ProjImg
                       src={`/thumbs/${post.projectId}.jpg`}
                       // src={test}
                       alt={post.title}

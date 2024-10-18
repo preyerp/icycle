@@ -127,6 +127,9 @@ const StudentImage = styled.img`
   object-fit: cover;
   display: block;
   box-sizing: border-box;
+  @media (max-width: 768px) {
+  width: 100%;
+  }
 `;
 
 const VimeoVideoWrapper = styled.div`

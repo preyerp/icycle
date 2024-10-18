@@ -377,7 +377,7 @@ function RealMain(props) {
                                 <Video src="web_main_02.mp4" style={{ scale: scale2, clipPath: clipPath2 }} />
                             </VideoWrapper>
                             <VideoWrapper style={{ opacity: opacity3, transform: trans3d3, filter: bright3 }}>
-                                <Video src="web_main_03.mp4" style={{ scale: scale3, clipPath: clipPath3 }} />
+                                <Video src="web_main_03(zoom).mp4" style={{ scale: scale3, clipPath: clipPath3 }} />
                             </VideoWrapper>
 
                         </Box>

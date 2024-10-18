@@ -262,7 +262,7 @@ const DropdownButton = styled.div`
 const DropdownMenu = styled.ul`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   position: absolute;
-  background-color: red;
+  background-color: #000;
   color: #fff;
   padding: 0;
   list-style: none;
@@ -271,8 +271,8 @@ const DropdownMenu = styled.ul`
   max-height: 300px;
   overflow-y: auto;
   text-align: center;
-  -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
-  z-index: 999; /* 뒤에 있는 요소가 앞에 나타나는 문제 해결 */
+  -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 2024.10.18 02:51*/
+  z-index: 999; /* 뒤에 있는 요소가 앞에 나타나는 문제 해결  2024.10.18 02:51*/
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -354,12 +354,14 @@ function Guestbook() {
       const designerArrayTemp = designerList.sort((a, b) => a.id - b.id);
       designerArrayTemp.unshift({ id: 0, name: "모두에게" });
       setDesignerData(designerArrayTemp)
+      console.log("designerList")
+      console.log(designerList)
 
       const nameArrayTemp = designerList.map(designer => designer.name); // name 필드만 추출한 배열
 
       const nameData = nameArrayTemp.sort((a, b) => a.localeCompare(b, "ko"));
 
-      nameData.unshift("모두에게");
+      // nameData.unshift("모두에게");
       nameData.unshift("SELECT");
       setNameData(nameData);
 
@@ -367,6 +369,10 @@ function Guestbook() {
       console.error("디자이너 데이터를 불러오는 중 오류 발생: ", error);
     }
   };
+  console.log("nameData")
+  console.log(nameData)
+  console.log("designerData")
+  console.log(designerData)
   // Firestore에서 모든 편지 목록 불러오기 (최근 작성 순)
   const fetchAllMessages = async () => {
     try {
