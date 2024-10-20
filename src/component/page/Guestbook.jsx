@@ -60,6 +60,7 @@ const AnimatedPopupChat = styled.div`
   opacity: ${({ isClosing }) => (isClosing ? 0 : 1)};
   @media (max-width: 768px) {
     width: 100%; /* 모바일에서는 전체 너비를 차지 */
+    height: calc(100vh - env(safe-area-inset-bottom));
   }
 `;
 
@@ -354,7 +355,7 @@ function Guestbook() {
       const nameArrayTemp = designerList.map(designer => designer.name); // name 필드만 추출한 배열
       const nameData = nameArrayTemp.sort((a, b) => a.localeCompare(b, "ko"));
 
-      
+
       const designerArrayTemp = designerList.sort((a, b) => a.id - b.id);
       designerArrayTemp.unshift({ id: 0, name: "모두에게" });
       setDesignerData(designerArrayTemp)

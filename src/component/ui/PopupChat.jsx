@@ -19,8 +19,8 @@ const MessagePopup = styled.div`
   @media (max-width: 768px) {
     font-size: 12px;
     width: 100%;  
-    height: auto;
-    justify-content: none;
+    height: calc(100% - env(safe-area-inset-bottom));
+    display: block;
     top: 0;
     position: absolute;
     transform: translateY(0);
@@ -47,9 +47,12 @@ const UserMessage = styled.div`
 const ChatInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
-  justify-content: space-between;
-  bottom: env(safe-area-inset-bottom);
+  position: fixed; /* Fixed position to stay at the bottom */
+  bottom: ${({ keyboardOffset }) => keyboardOffset || 'calc(15px + env(safe-area-inset-bottom))'};
+  width: calc(100% - 30px);
+  background-color: white;
+  padding: 10px;
+  transition: bottom 0.3s ease; /* Smooth transition for keyboard opening */
 `;
 
 const ChatInputRow = styled.div`
@@ -193,6 +196,27 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
   const [isReceiverValid, setIsReceiverValid] = useState(false);
   const inputRef = useRef(null);
   const chatContainerRef = useRef(null);
+  const [keyboardOffset, setKeyboardOffset] = useState('env(safe-area-inset-bottom)');
+
+  // 키보드 열림 감지 및 ChatInputWrapper 조정
+  useEffect(() => {
+    const handleResize = () => {
+      const windowHeight = window.innerHeight;
+      const keyboardHeight = window.screen.height - windowHeight; // 키보드 높이를 계산
+
+      if (keyboardHeight > 0) {
+        setKeyboardOffset(`${keyboardHeight}px`); // 키보드 높이만큼 offset 적용
+      } else {
+        setKeyboardOffset('env(safe-area-inset-bottom)'); // 키보드 닫힐 때 다시 원래 위치로
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const findIdByName = (name) => {
     const designer = designerData.find(designer => designer.name === name);
@@ -370,7 +394,7 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
         )}
       </div>
 
-      <ChatInputWrapper>
+      <ChatInputWrapper keyboardOffset={keyboardOffset}>
         <form>
           <ChatInputRow>
             <ResetButton type="button" onClick={resetChat}>
