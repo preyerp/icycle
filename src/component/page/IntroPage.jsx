@@ -64,7 +64,7 @@ const DescriptionContainer = styled.div`
   mix-blend-mode: difference;
   
   @media (max-width: 768px) {
-    top: 65.5%;
+    top: 75.5%;
     left: 50%;
     /* border: 1px solid red; */
     transform: translateX(-50%)
@@ -124,7 +124,7 @@ const RightWrap = styled.div`
   transform: translateY(-50%);
 
   @media (max-width: 768px) {
-    top:120px;
+    top:5%;
     transform: translateY(calc(24% - 36px));
     ;
     /* width: 100px; */

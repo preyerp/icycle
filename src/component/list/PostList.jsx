@@ -440,7 +440,7 @@ function PostList({ posts, onCategorySelect }) {
                 <TableCell width="20%">{post.title || 'N/A'}</TableCell>
                 <TableCell textAlign='right' width="24%">
                   {post.teamMembers?.map((member, index) => (
-                    <div key={index} style={{ float: 'left', whiteSpace: 'pre-wrap' }}>
+                    <div key={index} style={{ float: 'right', whiteSpace: 'pre-wrap' }}>
                       {member.name + "  " || 'N/A'}
                     </div>
                   ))}

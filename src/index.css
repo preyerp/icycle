@@ -39,7 +39,11 @@ body {
   font-size: 14px;
   font-weight: 400;
 }
-
+button {
+  color: inherit; /* 버튼의 텍스트 색상을 부모 요소의 색상으로 */
+  text-decoration: none; /* 텍스트 밑줄 제거 */
+  -webkit-appearance: none; /* 기본 iOS 스타일 제거 */
+}
 * {
   margin: 0;
   padding: 0;
