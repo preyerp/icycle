@@ -350,7 +350,7 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
   };
 
   return (
-    <MessagePopup>
+    <MessagePopup keyboardOffset={keyboardOffset}>
       <TopWrap>
         <TitleMenu>MESSAGE</TitleMenu>
         <CloseButton onClick={closePopup}>CLOSE</CloseButton>
