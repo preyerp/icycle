@@ -351,17 +351,18 @@ function Guestbook() {
         name: doc.data().name,
       }));
 
+      const nameArrayTemp = designerList.map(designer => designer.name); // name 필드만 추출한 배열
+      const nameData = nameArrayTemp.sort((a, b) => a.localeCompare(b, "ko"));
+
+      
       const designerArrayTemp = designerList.sort((a, b) => a.id - b.id);
       designerArrayTemp.unshift({ id: 0, name: "모두에게" });
       setDesignerData(designerArrayTemp)
       console.log("designerList")
       console.log(designerList)
 
-      const nameArrayTemp = designerList.map(designer => designer.name); // name 필드만 추출한 배열
 
-      const nameData = nameArrayTemp.sort((a, b) => a.localeCompare(b, "ko"));
-
-      // nameData.unshift("모두에게");
+      nameData.unshift("모두에게");
       nameData.unshift("SELECT");
       setNameData(nameData);
 

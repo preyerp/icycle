@@ -10,7 +10,6 @@ const MessagePopup = styled.div`
   height: 100vh;
   padding: 0 15px 15px;
   background-color: white;
-  border: 1px solid #ccc;
   transform: translateY(-50%);
   z-index: 1000;
   display: flex;
@@ -20,6 +19,11 @@ const MessagePopup = styled.div`
   @media (max-width: 768px) {
     font-size: 12px;
     width: 100%;  
+    height: auto;
+    justify-content: none;
+    top: 0;
+    position: absolute;
+    transform: translateY(0);
   }
 `;
 
@@ -45,6 +49,7 @@ const ChatInputWrapper = styled.div`
   flex-direction: column;
   position: relative;
   justify-content: space-between;
+  bottom: env(safe-area-inset-bottom);
 `;
 
 const ChatInputRow = styled.div`
@@ -327,7 +332,7 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
       </TopWrap>
       <div
         ref={chatContainerRef}
-        style={{ height: 'calc(100% - 80px)', padding: '24px 0', overflow: 'hidden' }}
+        style={{ height: 'auto', padding: '24px 0', overflow: 'hidden' }}
       >
         {chat.map((c, index) =>
           c.from === 'system' ? (

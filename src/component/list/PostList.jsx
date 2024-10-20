@@ -422,7 +422,7 @@ function PostList({ posts, onCategorySelect }) {
           <>
             {filteredPosts.map((post, index) => (
               <TableRow2
-                paddingLeft="5px"
+                paddingLeft="15px"
                 paddingRight="15px"
                 paddingBottom="10px"
                 hoverColor="#9d9d9d"
