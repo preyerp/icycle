@@ -14,7 +14,6 @@ const MessagePopup = styled.div`
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   overflow-y: auto;
   @media (max-width: 768px) {
     font-size: 12px;
@@ -41,9 +40,11 @@ const UserMessage = styled.div`
 
 const ChatInputWrapper = styled.div`
   display: flex;
+  height: 26px;
   flex-direction: column;
   position: relative;
   justify-content: space-between;
+  margin-top: 12px;
 `;
 
 const ChatInputRow = styled.div`
@@ -163,6 +164,13 @@ const Label = styled.div`
   margin-bottom: 8px;
   @media (max-width: 768px) {
     font-size: 12px;
+  }
+`;
+
+const MainContentWrap = styled.div`
+  height: calc(100vh - 107px);
+  overflow: scroll;
+  @media (max-width: 768px) {
   }
 `;
 
@@ -324,45 +332,46 @@ function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, desi
         <TitleMenu>MESSAGE</TitleMenu>
         <CloseButton onClick={closePopup}>CLOSE</CloseButton>
       </TopWrap>
-      <div
-        ref={chatContainerRef}
-        style={{ height: 'auto', padding: '24px 0', overflow: 'hidden' }}
-      >
-        {chat.map((c, index) =>
-          c.from === 'system' ? (
-            <div key={index}>
-              <Label>ICYCLE</Label>
-              <ChatMessage>
-                {c.message.split('\n').map((line, i) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))}
-              </ChatMessage>
-            </div>
-          ) : (
-            <div key={index}>
-              <Label style={{ textAlign: 'right' }}>YOU</Label>
-              <UserMessage>{c.message}</UserMessage>
-            </div>
-          )
-        )}
+      <MainContentWrap ref={chatContainerRef}>
+        <div
+          style={{ height: 'auto', padding: '24px 10px 12px 20px', overflow: 'hidden' }}
+        >
+          {chat.map((c, index) =>
+            c.from === 'system' ? (
+              <div key={index}>
+                <Label>ICYCLE</Label>
+                <ChatMessage>
+                  {c.message.split('\n').map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))}
+                </ChatMessage>
+              </div>
+            ) : (
+              <div key={index}>
+                <Label style={{ textAlign: 'right' }}>YOU</Label>
+                <UserMessage>{c.message}</UserMessage>
+              </div>
+            )
+          )}
 
-        {step === 1 && nameSuggestions.length > 0 && (
-          <Suggestions isOpen={nameSuggestions.length > 0}>
-            {nameSuggestions.map((suggestion, index) => (
-              <SuggestionItem
-                key={index}
-                highlighted={index === highlightedIndex}
-                onClick={() => handleSuggestionClick(suggestion)}
-              >
-                {suggestion}
-              </SuggestionItem>
-            ))}
-          </Suggestions>
-        )}
-      </div>
+          {step === 1 && nameSuggestions.length > 0 && (
+            <Suggestions isOpen={nameSuggestions.length > 0}>
+              {nameSuggestions.map((suggestion, index) => (
+                <SuggestionItem
+                  key={index}
+                  highlighted={index === highlightedIndex}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </SuggestionItem>
+              ))}
+            </Suggestions>
+          )}
+        </div>
+      </MainContentWrap>
 
       <ChatInputWrapper>
         <form>
