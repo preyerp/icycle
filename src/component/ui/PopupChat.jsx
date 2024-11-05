@@ -168,7 +168,7 @@ const Label = styled.div`
 `;
 
 const MainContentWrap = styled.div`
-  height: calc(100vh - 107px);
+  height: calc(100vh - (107px + env(safe-area-inset-bottom)));
   overflow: scroll;
   @media (max-width: 768px) {
   }
