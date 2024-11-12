@@ -42,7 +42,6 @@ const Box = styled(motion.div)`
   top: 0;
   left: 0;
   perspective: 1000px; /* 3D 효과를 위해 추가 */
-  min-height: calc(var(--vh, 1vh) * 100);
 
   pointer-events: none;
 `;
@@ -234,19 +233,6 @@ function RealMain(props) {
     const navigate = useNavigate();
     // const { scrollYProgress } = useScroll(); // useScroll 훅으로 스크롤 위치 추적
     const { scrollYProgress } = useScroll({ container: wrapperRef });
-
-    useEffect(() => {
-        const setViewportHeight = () => {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        };
-
-        setViewportHeight();
-
-        window.addEventListener('resize', setViewportHeight);
-        return () => window.removeEventListener('resize', setViewportHeight);
-    }, []);
-
     const phrases1 = [
         '1 / FROM',
         'ASCII, FUNCTION',
@@ -330,7 +316,7 @@ function RealMain(props) {
 
     // 세 번째 비디오의 opacity와 scale 설정
     const opacity3 = useTransform(scrollYProgress, [0.335, 0.34, 0.45, 0.5], [0, 1, 1, 0]);
-    const scale3 = useTransform(scrollYProgress, [0.34, 0.51], [1, 0.9]);
+    const scale3 = useTransform(scrollYProgress, [0.34, 0.51], [1, 0.9]); 
     const clipPath3 = useTransform(scrollYProgress, [0.34, 0.341], ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]);  //  등장효과
     const trans3d3 = useTransform(scrollYProgress, [0.34, 0.341], ["translate3d(0, 0, 300px)", "translate3d(0, 0, 0px)"]);   // 처음 등장효과
     const bright3 = useTransform(scrollYProgress, [0.34, 0.345, 0.348], ["brightness(0)", "brightness(10)", "brightness(1)"]);   //밝기
@@ -357,7 +343,7 @@ function RealMain(props) {
     console.log("nowSize")
     console.log(nowSize)
 
-
+    
     const textOpacity1 = useTransform(scrollYProgress, [0.35, 0.351], [0, 1]);
     const textOpacity2 = useTransform(scrollYProgress, [0.36, 0.361], [0, 1]);
     const textOpacity3 = useTransform(scrollYProgress, [0.48, 0.481], [0, 1]);
@@ -408,7 +394,7 @@ function RealMain(props) {
 
                                     <EmptyBox height={'60px'}></EmptyBox>
 
-                                    <TextContainer style={{ opacity: textOpacity1 }}>
+                                    <TextContainer style={{ opacity: textOpacity1}}>
                                         <InfoText >우리는 살아가면서 수많은 선택의 기로에 서고, 매 순간마다</InfoText>
                                         <InfoText >다른 결정을 내린다. 그 연속된 선택들이 쌓여 각자는 끊임없이</InfoText>
                                         <InfoText >성장하고 변화하며, 우리만의 독특한 결정을 만들어낸다.</InfoText>
@@ -416,7 +402,7 @@ function RealMain(props) {
 
                                     <EmptyBox height={'32px'}></EmptyBox>
 
-                                    <TextContainer style={{ opacity: textOpacity2 }}>
+                                    <TextContainer style={{ opacity: textOpacity2}}>
                                         <InfoText>지난 4년 동안, 90명의 각기 다른 개성을 지닌 사람들이</InfoText>
                                         <InfoText>이러한 선택의 순간들을 반복하며 자신만의 길을 개척해왔다.</InfoText>
                                         <InfoText>그 여정 속에서 형성된 결정들은 각자의 색과 결을 담아</InfoText>
@@ -521,14 +507,14 @@ function RealMain(props) {
 
                                     <EmptyBox height={'60px'}></EmptyBox>
 
-                                    <TextContainer style={{ opacity: textOpacity1 }}>
+                                    <TextContainer style={{ opacity: textOpacity1}}>
                                         <InfoText >우리는 살아가면서 수많은 선택의 기로에 서고, 매 순간마다 다른 결정을 내린다.</InfoText>
                                         <InfoText >그 연속된 선택들이 쌓여 각자는 끊임없이 성장하고 변화하며, 우리만의 독특한 결정을 만들어낸다.</InfoText>
                                     </TextContainer>
 
                                     <EmptyBox height={'32px'}></EmptyBox>
 
-                                    <TextContainer style={{ opacity: textOpacity2 }}>
+                                    <TextContainer style={{ opacity: textOpacity2}}>
                                         <InfoText >지난 4년 동안, 90명의 각기 다른 개성을 지닌 사람들이 이러한 선택의 순간들을 반복하며 자신만의 길을 개척해왔다.</InfoText>
                                         <InfoText >그 여정 속에서 형성된 결정들은 각자의 색과 결을 담아 이번 전시에서 작품으로 선보인다. 이 작품들은 단순한 결과물이 아니라,</InfoText>
                                         <InfoText >그들이 수많은 갈림길에서 내린 선택들이 모여 이루어진 결정체다.</InfoText>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // Styled Components
 const MessagePopup = styled.div`
   min-height: calc(var(--vh, 1vh) * 100);
+  padding-bottom: env(safe-area-inset-bottom); /* 하단 안전 영역 패딩 추가 */
   position: fixed;
   top: 50%;
   right: 0;
@@ -183,17 +184,7 @@ const Container = styled.div`
 
 function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, designerData, designerNameList }) {
 
-  useEffect(() => {
-    const setViewportHeight = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    setViewportHeight();
-
-    window.addEventListener('resize', setViewportHeight);
-    return () => window.removeEventListener('resize', setViewportHeight);
-  }, []);
+  
 
   const [chat, setChat] = useState([
     {

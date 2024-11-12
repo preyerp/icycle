@@ -11,19 +11,22 @@ import IntroPage from './component/page/IntroPage';
 // import GuestBookPage from './component/page/Guestbook';
 import Guestbook from './component/page/Guestbook';
 import ScrollToTop from './component/ui/ScrollToTop';
+import ViewportProvider from './component/ui/ViewportProvider';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <ClickCountProvider>
-      <ScrollToTop />
-      <Routes>
-        <Route index element={<RealMain />} />
-        <Route path="intro" element={<IntroPage />} />
-        <Route path="index" element={<IndexPage />} />
-        <Route path="guestbook" element={<Guestbook />} />
-        <Route path="projects" element={<Mainpage />} />
-        <Route path="projects/:pID" element={<PostViewPage />} />
-      </Routes>
+      <ViewportProvider>
+        <ScrollToTop />
+        <Routes>
+          <Route index element={<RealMain />} />
+          <Route path="intro" element={<IntroPage />} />
+          <Route path="index" element={<IndexPage />} />
+          <Route path="guestbook" element={<Guestbook />} />
+          <Route path="projects" element={<Mainpage />} />
+          <Route path="projects/:pID" element={<PostViewPage />} />
+        </Routes>
+      </ViewportProvider>
     </ClickCountProvider>
   </BrowserRouter>
 );
