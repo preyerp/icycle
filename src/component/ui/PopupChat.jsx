@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 // Styled Components
 const MessagePopup = styled.div`
+  min-height: calc(var(--vh, 1vh) * 100);
   position: fixed;
   top: 50%;
   right: 0;
   width: 450px;
-  height: 100vh;
   padding: 0 15px 15px;
   background-color: white;
   transform: translateY(-50%);
@@ -174,7 +174,27 @@ const MainContentWrap = styled.div`
   }
 `;
 
+const Container = styled.div`
+  min-height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 하단에 배치 */
+`;
+
 function PopupChat({ refreshCount, setRefreshCount, closePopup, addComment, designerData, designerNameList }) {
+
+  useEffect(() => {
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    setViewportHeight();
+
+    window.addEventListener('resize', setViewportHeight);
+    return () => window.removeEventListener('resize', setViewportHeight);
+  }, []);
+
   const [chat, setChat] = useState([
     {
       message: `졸업생들의 4년간의 성장과 노력의 결과물을 어떻게 보셨나요?\n그들을 가까이 지켜봐 온 여러분의 사랑과 응원이 담긴 메시지가\n앞으로의 졸업생들의 앞날에 큰 힘이 될 것입니다.`,
