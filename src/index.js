@@ -12,6 +12,7 @@ import IntroPage from './component/page/IntroPage';
 import Guestbook from './component/page/Guestbook';
 import ScrollToTop from './component/ui/ScrollToTop';
 import ViewportProvider from './component/ui/ViewportProvider';
+import TestChat from './component/page/TestChat';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -19,7 +20,8 @@ root.render(
       <ViewportProvider>
         <ScrollToTop />
         <Routes>
-          <Route index element={<RealMain />} />
+          {/* <Route index element={<RealMain />} /> */}
+          <Route index element={<TestChat />} />
           <Route path="intro" element={<IntroPage />} />
           <Route path="index" element={<IndexPage />} />
           <Route path="guestbook" element={<Guestbook />} />

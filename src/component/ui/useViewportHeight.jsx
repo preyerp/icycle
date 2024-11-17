@@ -6,6 +6,9 @@ function useViewportHeight() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
+    console.log("----------------=-=")
+    console.log(getComputedStyle(document.documentElement).getPropertyValue('--vh'));
+
 
     // 초기 설정
     setViewportHeight();
