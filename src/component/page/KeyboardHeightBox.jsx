@@ -1,36 +1,40 @@
 import React, { useState, useEffect } from 'react';
 
 const KeyboardHeightBox = () => {
-  const [keyboardHeight, setKeyboardHeight] = useState(10); // 초기 높이 10px
+  const [boxHeight, setBoxHeight] = useState(10); // 초기 높이 10px
 
   useEffect(() => {
-    const initialHeight = window.innerHeight;
-
     const handleResize = () => {
-      const currentHeight = window.innerHeight;
-      if (currentHeight < initialHeight) {
-        setKeyboardHeight(initialHeight - currentHeight); // 키보드 높이로 변경
+      const viewportHeight = window.visualViewport.height;
+      const fullHeight = window.innerHeight;
+      const keyboardHeight = fullHeight - viewportHeight;
+
+      if (keyboardHeight > 0) {
+        setBoxHeight(keyboardHeight); // 키보드 높이로 박스 높이 설정
       } else {
-        setKeyboardHeight(10); // 초기 높이로 복귀
+        setBoxHeight(10); // 기본 높이로 복원
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.visualViewport.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.visualViewport.removeEventListener('resize', handleResize);
     };
   }, []);
 
   return (
-    <div
-      style={{
-        width: '100px',
-        height: `${keyboardHeight}px`,
-        backgroundColor: 'blue',
-        transition: 'height 0.3s ease', // 부드러운 애니메이션 효과
-      }}
-    >
-      {/* 직사각형 */}
+    <div>
+      <input type="text" placeholder="Type here..." style={{ marginBottom: '20px' }} />
+      <div
+        style={{
+          width: '100%',
+          height: `${boxHeight}px`,
+          backgroundColor: 'lightblue',
+          transition: 'height 0.3s ease',
+        }}
+      >
+        Dynamic Height Box
+      </div>
     </div>
   );
 };
