@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-height: 100vh;
-  overflow: hidden;
-  padding-top: 50px; /* Header height */
-  padding-bottom: 60px; /* Input form height */
 `;
 
 const Header = styled.div`
@@ -25,6 +21,8 @@ const Header = styled.div`
 
 const MessageList = styled.div`
   flex: 1;
+  margin-top: 50px; /* Header height */
+  margin-bottom: 60px; /* Input form height */
   overflow-y: auto;
   padding: 10px;
 `;
@@ -40,8 +38,9 @@ const Message = styled.div`
 `;
 
 const InputForm = styled.form`
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  width: 100%;
   display: flex;
   background-color: white;
   border-top: 1px solid #ccc;
@@ -81,20 +80,6 @@ function TestChat() {
     { id: 2, text: '안녕하세요! 반갑습니다.', sender: 'me' },
   ]);
   const [input, setInput] = useState('');
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    // 입력 폼에 포커스 시 자동 스크롤 방지
-    const preventScroll = (e) => {
-      if (inputRef.current && document.activeElement === inputRef.current) {
-        e.preventDefault();
-      }
-    };
-    document.addEventListener('touchmove', preventScroll, { passive: false });
-    return () => {
-      document.removeEventListener('touchmove', preventScroll);
-    };
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -116,7 +101,6 @@ function TestChat() {
       </MessageList>
       <InputForm onSubmit={handleSubmit}>
         <Input
-          ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
