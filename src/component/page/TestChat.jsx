@@ -112,7 +112,32 @@ function TestChat() {
     }, []);
 
     return (
-        <ChatContainer height={boxHeight}>
+        // <ChatContainer height={boxHeight}>
+        //     <Header>{boxHeight}</Header>
+        //     <MessageList>
+        //         {messages.map((msg) => (
+        //             <Message key={msg.id} isMe={msg.sender === 'me'}>
+        //                 {msg.text}
+        //             </Message>
+        //         ))}
+        //     </MessageList>
+        //     <InputForm onSubmit={handleSubmit}>
+        //         <Input
+        //             type="text"
+        //             value={input}
+        //             onChange={(e) => setInput(e.target.value)}
+        //             placeholder="메시지를 입력하세요..."
+        //         />
+        //         <Button type="submit">전송</Button>
+        //     </InputForm>
+        // </ChatContainer>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: `calc(100vh - ${boxHeight}px)`,
+            }}
+        >
             <Header>{boxHeight}</Header>
             <MessageList>
                 {messages.map((msg) => (
@@ -130,7 +155,7 @@ function TestChat() {
                 />
                 <Button type="submit">전송</Button>
             </InputForm>
-        </ChatContainer>
+        </div>
     );
 }
 
