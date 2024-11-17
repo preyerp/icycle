@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const ChatContainer = styled.div`
@@ -25,6 +25,7 @@ const MessageList = styled.div`
   margin-bottom: 60px; /* Input form height */
   overflow-y: auto;
   padding: 10px;
+  height: ${(props) => props.height}px; /* Dynamic height adjustment */
 `;
 
 const Message = styled.div`
@@ -80,6 +81,9 @@ function TestChat() {
     { id: 2, text: '안녕하세요! 반갑습니다.', sender: 'me' },
   ]);
   const [input, setInput] = useState('');
+  const [messageListHeight, setMessageListHeight] = useState(window.innerHeight - 110); // Default height (header + input form)
+
+  const messageListRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,10 +93,26 @@ function TestChat() {
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.visualViewport) {
+        const viewportHeight = window.visualViewport.height;
+        setMessageListHeight(viewportHeight - 110); // Adjust based on header and input form
+      } else {
+        setMessageListHeight(window.innerHeight - 110); // Fallback for unsupported browsers
+      }
+    };
+
+    window.visualViewport?.addEventListener('resize', handleResize);
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <ChatContainer>
       <Header>채팅</Header>
-      <MessageList>
+      <MessageList ref={messageListRef} height={messageListHeight}>
         {messages.map((msg) => (
           <Message key={msg.id} isMe={msg.sender === 'me'}>
             {msg.text}
