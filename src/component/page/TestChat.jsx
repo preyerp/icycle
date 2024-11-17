@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  
+  height: calc(100vh - ${props => props.height}px);
 `;
 
 const Header = styled.div`
@@ -25,7 +26,6 @@ const MessageList = styled.div`
   margin-bottom: 60px; /* Input form height */
   overflow-y: auto;
   padding: 10px;
-  height: ${(props) => props.height}px; /* Dynamic height adjustment */
 `;
 
 const Message = styled.div`
@@ -76,60 +76,62 @@ const Button = styled.button`
 `;
 
 function TestChat() {
-  const [messages, setMessages] = useState([
-    { id: 1, text: '안녕하세요!', sender: 'other' },
-    { id: 2, text: '안녕하세요! 반갑습니다.', sender: 'me' },
-  ]);
-  const [input, setInput] = useState('');
-  const [messageListHeight, setMessageListHeight] = useState(window.innerHeight - 110); // Default height (header + input form)
+    const [messages, setMessages] = useState([
+        { id: 1, text: '안녕하세요!', sender: 'other' },
+        { id: 2, text: '안녕하세요! 반갑습니다.', sender: 'me' },
+    ]);
+    const [input, setInput] = useState('');
 
-  const messageListRef = useRef();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (input.trim()) {
-      setMessages([...messages, { id: Date.now(), text: input, sender: 'me' }]);
-      setInput('');
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.visualViewport) {
-        const viewportHeight = window.visualViewport.height;
-        setMessageListHeight(viewportHeight - 110); // Adjust based on header and input form
-      } else {
-        setMessageListHeight(window.innerHeight - 110); // Fallback for unsupported browsers
-      }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (input.trim()) {
+            setMessages([...messages, { id: Date.now(), text: input, sender: 'me' }]);
+            setInput('');
+        }
     };
 
-    window.visualViewport?.addEventListener('resize', handleResize);
-    return () => {
-      window.visualViewport?.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    const [boxHeight, setBoxHeight] = useState(0); // 초기 높이 10px
 
-  return (
-    <ChatContainer>
-      <Header>채팅</Header>
-      <MessageList ref={messageListRef} height={messageListHeight}>
-        {messages.map((msg) => (
-          <Message key={msg.id} isMe={msg.sender === 'me'}>
-            {msg.text}
-          </Message>
-        ))}
-      </MessageList>
-      <InputForm onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="메시지를 입력하세요..."
-        />
-        <Button type="submit">전송</Button>
-      </InputForm>
-    </ChatContainer>
-  );
+    useEffect(() => {
+        const handleResize = () => {
+            const viewportHeight = window.visualViewport.height;
+            const fullHeight = window.innerHeight;
+            const keyboardHeight = fullHeight - viewportHeight;
+
+            if (keyboardHeight > 0) {
+                setBoxHeight(keyboardHeight); // 키보드 높이로 박스 높이 설정
+            } else {
+                setBoxHeight(0); // 기본 높이로 복원
+            }
+        };
+
+        window.visualViewport.addEventListener('resize', handleResize);
+        return () => {
+            window.visualViewport.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    return (
+        <ChatContainer height={boxHeight}>
+            <Header>채팅</Header>
+            <MessageList>
+                {messages.map((msg) => (
+                    <Message key={msg.id} isMe={msg.sender === 'me'}>
+                        {msg.text}
+                    </Message>
+                ))}
+            </MessageList>
+            <InputForm onSubmit={handleSubmit}>
+                <Input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="메시지를 입력하세요..."
+                />
+                <Button type="submit">전송</Button>
+            </InputForm>
+        </ChatContainer>
+    );
 }
 
 export default TestChat;
