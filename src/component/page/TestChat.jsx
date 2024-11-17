@@ -113,7 +113,7 @@ function TestChat() {
 
     return (
         <ChatContainer height={boxHeight}>
-            <Header>채팅</Header>
+            <Header>{boxHeight}</Header>
             <MessageList>
                 {messages.map((msg) => (
                     <Message key={msg.id} isMe={msg.sender === 'me'}>
