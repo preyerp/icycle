@@ -22,8 +22,8 @@ root.render(
         <ScrollToTop />
         <Routes>
           {/* <Route index element={<RealMain />} /> */}
-          <Route index element={<KeyboardHeightBox />} />
-          {/* <Route index element={<TestChat />} /> */}
+          {/* <Route index element={<KeyboardHeightBox />} /> */}
+          <Route index element={<TestChat />} />
           <Route path="intro" element={<IntroPage />} />
           <Route path="index" element={<IndexPage />} />
           <Route path="guestbook" element={<Guestbook />} />
