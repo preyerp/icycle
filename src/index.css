@@ -2,16 +2,11 @@
 
 @import url('https://fonts.cdnfonts.com/css/ocr-a-std');
 
-
-
-body {
-  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-
+:root {
+  --keyboard-height: 0px;
 }
+
+
 
 /* 기본적인 브라우저 초기화 */
 
@@ -20,17 +15,26 @@ body {
 
 
 /* HTML, Body 설정 */
-html,
-body {
-  line-height: 1.5; /* 줄간격*/
+html {
   /* overflow-x: hidden; */
   /* 수평 스크롤 방지 */
+  height: 100%;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   background-color: pink;
 }
 
+html.keyboard-active {
+  /* 키보드가 올라올 때 스타일 적용 */
+  height: calc(100% - var(--keyboard-height));
+}
+
 body {
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5; /* 줄간격*/
   margin: 0;
   font-family: 'Pretendard Variable', sans-serif;
   -webkit-font-smoothing: antialiased;
