@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import './index.css';
+import '../../index.css';
 
 const ChatContainer = styled.div`
   display: flex;
