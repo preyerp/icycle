@@ -27,7 +27,6 @@ body {
   /* 수평 스크롤 방지 */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
-  min-height: calc(var(--vh, 1vh) * 100);
   background-color: pink;
 }
 
