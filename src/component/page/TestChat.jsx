@@ -99,12 +99,14 @@ function TestChat() {
             const keyboardHeight = fullHeight - viewportHeight;
 
             if (keyboardHeight > 0) {
+                setBoxHeight(keyboardHeight); // 키보드 높이로 박스 높이 설정
                 document.documentElement.style.setProperty('--keyboard-height', `${keyboardHeight}px`);
                 document.documentElement.classList.add('keyboard-active');
-            } else {
+              } else {
+                setBoxHeight(0); // 기본 높이로 복원
                 document.documentElement.style.setProperty('--keyboard-height', '10px');
                 document.documentElement.classList.remove('keyboard-active');
-            }
+              }
         };
 
         window.visualViewport.addEventListener('resize', handleResize);
@@ -137,7 +139,7 @@ function TestChat() {
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: `100vh`,
+                height: `calc(100vh - ${boxHeight}px)`,
                 backgroundColor: 'red'
             }}
         >
