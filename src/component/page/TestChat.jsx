@@ -136,6 +136,7 @@ function TestChat() {
                 display: 'flex',
                 flexDirection: 'column',
                 height: `calc(100vh - ${boxHeight}px)`,
+                backgroundColor: 'red'
             }}
         >
             <Header>{boxHeight}</Header>
