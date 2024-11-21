@@ -27,6 +27,7 @@ html {
 @media (max-width: 768px) {
   html.keyboard-active {
     /* 키보드가 올라올 때 스타일 적용 */
+    background-color: blue;
     height: calc(100% - var(--keyboard-height));
   }
 }

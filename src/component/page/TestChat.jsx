@@ -95,6 +95,8 @@ function TestChat() {
 
     useEffect(() => {
         const handleResize = () => {
+            if (window.innerWidth > 768) return;
+            
             const viewportHeight = window.visualViewport.height;
             const fullHeight = window.innerHeight;
             const keyboardHeight = fullHeight - viewportHeight;
